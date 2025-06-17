@@ -1,11 +1,9 @@
 'use client';
-
 import Image from 'next/image';
 import { useState } from 'react';
 
 export default function EliminarConductor() {
-  const [foto] = useState('/images/foto-conductor.jpg'); // Ruta en public/
-
+  const [foto] = useState('/images/foto-conductor.jpg');
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -31,18 +29,15 @@ export default function EliminarConductor() {
           <div className="px-6 py-4">
             <h2 className="text-xl font-semibold text-gray-800">Eliminar Conductor</h2>
           </div>
-
           <form className="p-6">
-            {/* GRID */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* Nombres */}
+              {/* Datos personales */}
               <div className="space-y-4">
                 <Field label="Primer Nombre" value="Felipe" required />
                 <Field label="Segundo Nombre" value="Augusto" />
                 <Field label="Primer Apellido" value="Valencia" required />
                 <Field label="Segundo Apellido" value="Gomez" />
               </div>
-
               {/* Credenciales */}
               <div className="space-y-4">
                 <Field label="Correo Electrónico" type="email" value="felipito1985@ejemplo.com" required />
@@ -50,18 +45,16 @@ export default function EliminarConductor() {
                 <PasswordField label="Confirmar Contraseña" value="Felipe1985*" />
                 <Field label="Número de Cédula" value="81000000" required />
               </div>
-
-              {/* Info adicional */}
+              {/* Información adicional */}
               <div className="space-y-4">
                 <Field label="Número de Contacto" value="3003004051" required />
                 <SelectField label="Tipo de Licencia" options={["A1 - Motocicletas", "B1 - Automóviles", "C1 - Camiones"]} selected="A1 - Motocicletas" />
                 <Field label="Vigencia Licencia" value="MARZO-2029" required />
                 <Field label="Vehículo asignado" value="REE-852" />
               </div>
-
-              {/* Foto */}
+              {/* Foto del conductor */}
               <div className="flex flex-col items-center justify-center">
-                <label className="text-sm font-medium text-gray-700 mb-2">Foto del Conductor</label>
+                <p className="text-sm font-medium text-gray-700 mb-2">Foto del Conductor</p>
                 <div className="relative mb-4">
                   <Image
                     src={foto}
@@ -74,7 +67,7 @@ export default function EliminarConductor() {
               </div>
             </div>
 
-            {/* Confirmación */}
+            {/* Advertencia y confirmación */}
             <div className="mt-8 w-full bg-red-50 border-l-4 border-red-400 p-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-start">
@@ -88,7 +81,6 @@ export default function EliminarConductor() {
                     </p>
                   </div>
                 </div>
-
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <input
                     type="password"
@@ -97,7 +89,7 @@ export default function EliminarConductor() {
                   />
                   <button
                     type="button"
-                    className="w-full sm:w-auto px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm text-lg font-medium transition-colors whitespace-nowrap"
+                    className="w-full sm:w-auto px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm text-lg font-medium transition-colors"
                   >
                     Confirmar Eliminación
                   </button>
@@ -111,14 +103,19 @@ export default function EliminarConductor() {
   );
 }
 
-// Campos reutilizables
+// Componentes reutilizables
 function Field({ label, value, required = false, type = 'text' }: { label: string, value: string, required?: boolean, type?: string }) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      <input type={type} value={value} disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" />
+      <input
+        type={type}
+        value={value}
+        disabled
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+      />
     </div>
   );
 }
@@ -128,7 +125,12 @@ function PasswordField({ label, value }: { label: string, value: string }) {
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <div className="relative">
-        <input type="password" value={value} disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" />
+        <input
+          type="password"
+          value={value}
+          disabled
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+        />
         <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
           <i className="fas fa-eye"></i>
         </span>
@@ -141,10 +143,15 @@ function SelectField({ label, options, selected }: { label: string, options: str
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <select disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed">
+      <select
+        disabled
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+      >
         <option>💬 Seleccionar</option>
         {options.map((opt) => (
-          <option key={opt} selected={opt === selected}>{opt}</option>
+          <option key={opt} selected={opt === selected}>
+            {opt}
+          </option>
         ))}
       </select>
     </div>

@@ -114,17 +114,17 @@ export default function EliminarConductor() {
 }
 
 // Campos reutilizables
-function Field({
+const Field = ({
   label,
   value,
   required = false,
   type = 'text'
-}: {
+}: Readonly<{
   label: string;
   value: string;
   required?: boolean;
   type?: string;
-}) {
+}>) => {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">

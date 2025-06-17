@@ -94,7 +94,7 @@ export default function EditDriver() {
 
               {/* Columna 3 */}
               <div className="space-y-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Licencia</label>
+                <p className="block text-sm font-medium text-gray-700 mb-1">Tipo de Licencia</p>
                 <select name="tipoLicencia" value={form.tipoLicencia} onChange={handleSelectChange} className="w-full px-3 py-2 border rounded-md">
                   <option value="">💬 Seleccionar</option>
                   <option value="A1 - Motocicletas">A1 - Motocicletas</option>
@@ -107,7 +107,7 @@ export default function EditDriver() {
 
               {/* Columna 4 - Foto */}
               <div className="flex flex-col items-center justify-center space-y-4">
-                <label className="text-sm font-medium text-gray-700">Foto del Conductor</label>
+                <p className="text-sm font-medium text-gray-700">Foto del Conductor</p>
                 <div className="relative">
                   <Image 
                   src={photoPreview} 

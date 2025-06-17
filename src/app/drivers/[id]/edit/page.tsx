@@ -162,12 +162,12 @@ function Input({ label, name, value, onChange, required, type = 'text' }: InputP
 
 // PasswordInput component
 type PasswordInputProps = {
-  label: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  visible: boolean;
-  toggleVisible: () => void;
+  readonly label: string;
+  readonly name: string;
+  readonly value: string;
+  readonly onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  readonly visible: boolean;
+  readonly toggleVisible: () => void;
 };
 
 function PasswordInput({ label, name, value, onChange, visible, toggleVisible }: PasswordInputProps) {

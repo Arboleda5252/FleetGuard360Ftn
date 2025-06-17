@@ -1,12 +1,9 @@
 'use client';
-
 import Image from 'next/image';
 import { useState } from 'react';
 
 export default function EliminarConductor() {
   const [foto] = useState('/images/foto-conductor.jpg'); // Ruta en public/
-
-
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Barra de navegación */}
@@ -31,7 +28,6 @@ export default function EliminarConductor() {
           <div className="px-6 py-4">
             <h2 className="text-xl font-semibold text-gray-800">Eliminar Conductor</h2>
           </div>
-
           <form className="p-6">
             {/* GRID */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -42,7 +38,6 @@ export default function EliminarConductor() {
                 <Field label="Primer Apellido" value="Valencia" required />
                 <Field label="Segundo Apellido" value="Gomez" />
               </div>
-
               {/* Credenciales */}
               <div className="space-y-4">
                 <Field label="Correo Electrónico" type="email" value="felipito1985@ejemplo.com" required />
@@ -50,18 +45,27 @@ export default function EliminarConductor() {
                 <PasswordField label="Confirmar Contraseña" value="Felipe1985*" />
                 <Field label="Número de Cédula" value="81000000" required />
               </div>
-
               {/* Info adicional */}
               <div className="space-y-4">
                 <Field label="Número de Contacto" value="3003004051" required />
-                <SelectField label="Tipo de Licencia" options={["A1 - Motocicletas", "B1 - Automóviles", "C1 - Camiones"]} selected="A1 - Motocicletas" />
+                <SelectField 
+                  label="Tipo de Licencia" 
+                  options={["A1 - Motocicletas", "B1 - Automóviles", "C1 - Camiones"]} 
+                  selected="A1 - Motocicletas" 
+                />
                 <Field label="Vigencia Licencia" value="MARZO-2029" required />
                 <Field label="Vehículo asignado" value="REE-852" />
               </div>
-
               {/* Foto */}
               <div className="flex flex-col items-center justify-center">
-                <label className="text-sm font-medium text-gray-700 mb-2">Foto del Conductor</label>
+                <label
+                  htmlFor="foto-conductor"
+                  className="text-sm font-medium text-gray-700 mb-2"
+                >
+                  Foto del Conductor
+                </label>
+                {/* Input oculto para asociar el label */}
+                <input type="hidden" id="foto-conductor" />
                 <div className="relative mb-4">
                   <Image
                     src={foto}
@@ -73,7 +77,6 @@ export default function EliminarConductor() {
                 </div>
               </div>
             </div>
-
             {/* Confirmación */}
             <div className="mt-8 w-full bg-red-50 border-l-4 border-red-400 p-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -88,7 +91,6 @@ export default function EliminarConductor() {
                     </p>
                   </div>
                 </div>
-
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <input
                     type="password"
@@ -112,23 +114,51 @@ export default function EliminarConductor() {
 }
 
 // Campos reutilizables
-function Field({ label, value, required = false, type = 'text' }: { label: string, value: string, required?: boolean, type?: string }) {
+function Field({
+  label,
+  value,
+  required = false,
+  type = 'text'
+}: {
+  label: string;
+  value: string;
+  required?: boolean;
+  type?: string;
+}) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      <input type={type} value={value} disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" />
+      <input
+        type={type}
+        value={value}
+        disabled
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+      />
     </div>
   );
 }
 
-function PasswordField({ label, value }: { label: string, value: string }) {
+function PasswordField({
+  label,
+  value
+}: {
+  label: string;
+  value: string;
+}) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
       <div className="relative">
-        <input type="password" value={value} disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed" />
+        <input
+          type="password"
+          value={value}
+          disabled
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+        />
         <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
           <i className="fas fa-eye"></i>
         </span>
@@ -137,14 +167,30 @@ function PasswordField({ label, value }: { label: string, value: string }) {
   );
 }
 
-function SelectField({ label, options, selected }: { label: string, options: string[], selected: string }) {
+function SelectField({
+  label,
+  options,
+  selected
+}: {
+  label: string;
+  options: string[];
+  selected: string;
+}) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <select disabled className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed">
-        <option>💬 Seleccionar</option>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
+      <select
+        disabled
+        value={selected}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+      >
+        <option value="">💬 Seleccionar</option>
         {options.map((opt) => (
-          <option key={opt} selected={opt === selected}>{opt}</option>
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
         ))}
       </select>
     </div>

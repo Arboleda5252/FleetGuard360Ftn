@@ -24,7 +24,6 @@ const NuevoConductor = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      {/* Header */}
       <nav className="bg-blue-600 text-white shadow-md">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
@@ -41,7 +40,6 @@ const NuevoConductor = () => {
         </div>
       </nav>
 
-      {/* Formulario */}
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
           <div className="px-6 py-4">
@@ -49,7 +47,6 @@ const NuevoConductor = () => {
           </div>
           <form className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* Columna 1 */}
               <div className="space-y-4">
                 <Input id="primerNombre" label="Primer Nombre" required defaultValue="Felipe" />
                 <Input id="segundoNombre" label="Segundo Nombre" defaultValue="Augusto" />
@@ -57,7 +54,6 @@ const NuevoConductor = () => {
                 <Input id="segundoApellido" label="Segundo Apellido" defaultValue="Gomez" />
               </div>
 
-              {/* Columna 2 */}
               <div className="space-y-4">
                 <Input id="correo" label="Correo Electrónico" type="email" required defaultValue="felipito1985@ejemplo.com" />
                 <PasswordInput id="password" label="Contraseña" mostrar={mostrarPassword} toggle={() => setMostrarPassword(!mostrarPassword)} />
@@ -65,7 +61,6 @@ const NuevoConductor = () => {
                 <Input id="cedula" label="Número de Cédula" required defaultValue="81000000" />
               </div>
 
-              {/* Columna 3 */}
               <div className="space-y-4">
                 <Input id="contacto" label="Número de Contacto" required defaultValue="3003004051" type="tel" />
                 <div>
@@ -73,8 +68,8 @@ const NuevoConductor = () => {
                   <select
                     id="tipoLicencia"
                     name="tipoLicencia"
-                    className="w-full px-3 py-2 border rounded-md"
                     defaultValue="B1 - Automóviles"
+                    className="w-full px-3 py-2 border rounded-md"
                   >
                     <option disabled>💬 Seleccionar</option>
                     <option>A1 - Motocicletas</option>
@@ -86,12 +81,11 @@ const NuevoConductor = () => {
                 <Input id="vehiculo" label="Vehículo asignado" defaultValue="REE-852" />
               </div>
 
-              {/* Columna 4 */}
               <div className="flex flex-col items-center justify-center">
                 <Label htmlFor="fotoConductor" text="Foto del Conductor" />
                 <div className="relative mb-4">
                   <Image
-                    src={foto || '/images/avatar-placeholder.png'}
+                    src={foto ?? '/images/avatar-placeholder.png'}
                     alt="Foto del conductor"
                     width={160}
                     height={160}
@@ -124,6 +118,7 @@ const NuevoConductor = () => {
                 <p className="mt-2 text-xs text-gray-500">Formatos: JPG, PNG (Max. 2MB)</p>
               </div>
             </div>
+
             <div className="mt-8 flex justify-center">
               <button
                 type="submit"
@@ -139,12 +134,26 @@ const NuevoConductor = () => {
   );
 };
 
+// Interfaces para props
+
+interface LabelProps {
+  readonly htmlFor: string;
+  readonly text: string;
+  readonly required?: boolean;
+}
+
+const Label = ({ htmlFor, text, required }: LabelProps) => (
+  <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-700 mb-1">
+    {text} {required && <span className="text-red-500">*</span>}
+  </label>
+);
+
 interface InputProps {
-  id: string;
-  label: string;
-  required?: boolean;
-  defaultValue?: string;
-  type?: string;
+  readonly id: string;
+  readonly label: string;
+  readonly required?: boolean;
+  readonly defaultValue?: string;
+  readonly type?: string;
 }
 
 const Input = ({ id, label, required, defaultValue, type = 'text' }: InputProps) => (
@@ -161,10 +170,10 @@ const Input = ({ id, label, required, defaultValue, type = 'text' }: InputProps)
 );
 
 interface PasswordInputProps {
-  id: string;
-  label: string;
-  mostrar: boolean;
-  toggle: () => void;
+  readonly id: string;
+  readonly label: string;
+  readonly mostrar: boolean;
+  readonly toggle: () => void;
 }
 
 const PasswordInput = ({ id, label, mostrar, toggle }: PasswordInputProps) => (
@@ -174,32 +183,20 @@ const PasswordInput = ({ id, label, mostrar, toggle }: PasswordInputProps) => (
       <input
         id={id}
         type={mostrar ? 'text' : 'password'}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
         defaultValue=""
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
       />
       <button
         type="button"
         onClick={toggle}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
         aria-label="Mostrar u ocultar contraseña"
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
       >
         <i className={mostrar ? 'fas fa-eye-slash' : 'fas fa-eye'} />
       </button>
     </div>
     <p className="mt-1 text-xs text-gray-500">Dejar en blanco para no cambiar</p>
   </div>
-);
-
-interface LabelProps {
-  htmlFor: string;
-  text: string;
-  required?: boolean;
-}
-
-const Label = ({ htmlFor, text, required }: LabelProps) => (
-  <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-700 mb-1">
-    {text} {required && <span className="text-red-500">*</span>}
-  </label>
 );
 
 export default NuevoConductor;

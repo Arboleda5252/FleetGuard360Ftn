@@ -105,8 +105,14 @@ const NuevoConductor = () => {
                   )}
                 </div>
                 <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md shadow-sm text-sm font-medium">
-                  <i className="fas fa-camera mr-2"></i> Cambiar foto
-                  <input type="file" accept="image/*" onChange={handleFotoChange} className="hidden" />
+                  <i className="fas fa-camera mr-2" />
+                  <span>Cambiar foto</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFotoChange}
+                    className="hidden"
+                  />
                 </label>
                 <p className="mt-2 text-xs text-gray-500">Formatos: JPG, PNG (Max. 2MB)</p>
               </div>

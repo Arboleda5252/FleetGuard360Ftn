@@ -4,10 +4,8 @@ import { useState } from 'react';
 
 export default function EliminarConductor() {
   const [foto] = useState('/images/foto-conductor.jpg');
-
   return (
     <div className="bg-gray-100 min-h-screen">
-      {/* Barra de navegación */}
       <nav className="bg-blue-600 text-white shadow-md">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
@@ -18,12 +16,11 @@ export default function EliminarConductor() {
             <a href="#" className="hover:text-blue-200 transition-colors">Horario</a>
             <a href="#" className="font-semibold hover:text-blue-200 transition-colors">Conductores</a>
           </div>
-          <button className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition-colors">
+          <button className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition-colors" aria-label="Cerrar sesión">
             <i className="fas fa-sign-out-alt text-lg"></i>
           </button>
         </div>
       </nav>
-
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
           <div className="px-6 py-4">
@@ -31,30 +28,26 @@ export default function EliminarConductor() {
           </div>
           <form className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* Datos personales */}
               <div className="space-y-4">
-                <Field label="Primer Nombre" value="Felipe" required />
-                <Field label="Segundo Nombre" value="Augusto" />
-                <Field label="Primer Apellido" value="Valencia" required />
-                <Field label="Segundo Apellido" value="Gomez" />
+                <Field id="nombre1" label="Primer Nombre" value="Felipe" required />
+                <Field id="nombre2" label="Segundo Nombre" value="Augusto" />
+                <Field id="apellido1" label="Primer Apellido" value="Valencia" required />
+                <Field id="apellido2" label="Segundo Apellido" value="Gomez" />
               </div>
-              {/* Credenciales */}
               <div className="space-y-4">
-                <Field label="Correo Electrónico" type="email" value="felipito1985@ejemplo.com" required />
-                <PasswordField label="Contraseña" value="********" />
-                <PasswordField label="Confirmar Contraseña" value="Felipe1985*" />
-                <Field label="Número de Cédula" value="81000000" required />
+                <Field id="correo" label="Correo Electrónico" type="email" value="felipito1985@ejemplo.com" required />
+                <PasswordField id="pass1" label="Contraseña" value="********" />
+                <PasswordField id="pass2" label="Confirmar Contraseña" value="Felipe1985*" />
+                <Field id="cedula" label="Número de Cédula" value="81000000" required />
               </div>
-              {/* Información adicional */}
               <div className="space-y-4">
-                <Field label="Número de Contacto" value="3003004051" required />
-                <SelectField label="Tipo de Licencia" options={["A1 - Motocicletas", "B1 - Automóviles", "C1 - Camiones"]} selected="A1 - Motocicletas" />
-                <Field label="Vigencia Licencia" value="MARZO-2029" required />
-                <Field label="Vehículo asignado" value="REE-852" />
+                <Field id="contacto" label="Número de Contacto" value="3003004051" required />
+                <SelectField id="licencia" label="Tipo de Licencia" options={["A1 - Motocicletas", "B1 - Automóviles", "C1 - Camiones"]} selected="A1 - Motocicletas" />
+                <Field id="vigencia" label="Vigencia Licencia" value="MARZO-2029" required />
+                <Field id="vehiculo" label="Vehículo asignado" value="REE-852" />
               </div>
-              {/* Foto del conductor */}
               <div className="flex flex-col items-center justify-center">
-                <p className="text-sm font-medium text-gray-700 mb-2">Foto del Conductor</p>
+                <label htmlFor="fotoConductor" className="text-sm font-medium text-gray-700 mb-2">Foto del Conductor</label>
                 <div className="relative mb-4">
                   <Image
                     src={foto}
@@ -66,8 +59,6 @@ export default function EliminarConductor() {
                 </div>
               </div>
             </div>
-
-            {/* Advertencia y confirmación */}
             <div className="mt-8 w-full bg-red-50 border-l-4 border-red-400 p-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-start">
@@ -83,12 +74,13 @@ export default function EliminarConductor() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <input
+                    id="confirmPass"
                     type="password"
                     placeholder="Ingrese su contraseña"
                     className="w-full sm:w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                   <button
-                    type="button"
+                    type="submit"
                     className="w-full sm:w-auto px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm text-lg font-medium transition-colors"
                   >
                     Confirmar Eliminación
@@ -103,14 +95,15 @@ export default function EliminarConductor() {
   );
 }
 
-// Componentes reutilizables
-function Field({ label, value, required = false, type = 'text' }: { label: string, value: string, required?: boolean, type?: string }) {
+// Reusable components with corrected typing
+function Field({ id, label, value, required = false, type = 'text' }: { id: string, label: string, value: string, required?: boolean, type?: string }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <input
+        id={id}
         type={type}
         value={value}
         disabled
@@ -120,36 +113,39 @@ function Field({ label, value, required = false, type = 'text' }: { label: strin
   );
 }
 
-function PasswordField({ label, value }: { label: string, value: string }) {
+function PasswordField({ id, label, value }: { id: string, label: string, value: string }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <div className="relative">
         <input
+          id={id}
           type="password"
           value={value}
           disabled
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
         />
         <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-          <i className="fas fa-eye"></i>
+          <i className="fas fa-eye" />
         </span>
       </div>
     </div>
   );
 }
 
-function SelectField({ label, options, selected }: { label: string, options: string[], selected: string }) {
+function SelectField({ id, label, options, selected }: { id: string, label: string, options: string[], selected: string }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <select
+        id={id}
+        defaultValue={selected}
         disabled
         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
       >
-        <option>💬 Seleccionar</option>
+        <option disabled>💬 Seleccionar</option>
         {options.map((opt) => (
-          <option key={opt} selected={opt === selected}>
+          <option key={opt} value={opt}>
             {opt}
           </option>
         ))}

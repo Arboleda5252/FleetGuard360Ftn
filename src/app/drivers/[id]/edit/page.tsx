@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import Image from 'next/image';
 import { FaSignOutAlt, FaEye, FaEyeSlash, FaTimes, FaCamera } from 'react-icons/fa';
@@ -19,7 +18,6 @@ export default function EditDriver() {
     password: '',
     confirmPassword: '',
   });
-
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [photoPreview, setPhotoPreview] = useState('https://via.placeholder.com/300x300');
@@ -49,7 +47,6 @@ export default function EditDriver() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí manejas el envío de datos
     console.log('Formulario enviado:', form);
   };
 
@@ -64,7 +61,7 @@ export default function EditDriver() {
             <a href="#" className="hover:text-blue-200">Horario</a>
             <a href="#" className="font-semibold hover:text-blue-200">Conductores</a>
           </div>
-          <button className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full">
+          <button className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full" aria-label="Cerrar sesión">
             <FaSignOutAlt />
           </button>
         </div>
@@ -94,8 +91,8 @@ export default function EditDriver() {
 
               {/* Columna 3 */}
               <div className="space-y-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tipo de Licencia</label>
-                <select name="tipoLicencia" value={form.tipoLicencia} onChange={handleSelectChange} className="w-full px-3 py-2 border rounded-md">
+                <label htmlFor="tipoLicencia" className="block text-sm font-medium text-gray-700 mb-1">Tipo de Licencia</label>
+                <select id="tipoLicencia" name="tipoLicencia" value={form.tipoLicencia} onChange={handleSelectChange} className="w-full px-3 py-2 border rounded-md">
                   <option value="">💬 Seleccionar</option>
                   <option value="A1 - Motocicletas">A1 - Motocicletas</option>
                   <option value="B1 - Automóviles">B1 - Automóviles</option>
@@ -107,23 +104,23 @@ export default function EditDriver() {
 
               {/* Columna 4 - Foto */}
               <div className="flex flex-col items-center justify-center space-y-4">
-                <label className="text-sm font-medium text-gray-700">Foto del Conductor</label>
+                <label htmlFor="photoInput" className="text-sm font-medium text-gray-700">Foto del Conductor</label>
                 <div className="relative">
                   <Image 
-                  src={photoPreview} 
-                  alt="Foto" 
-                  className="rounded-full object-cover border-4 border-gray-200 shadow-sm"
-                  width={40}
-                  height={40}
+                    src={photoPreview} 
+                    alt="Foto del Conductor" 
+                    className="rounded-full object-cover border-4 border-gray-200 shadow-sm"
+                    width={100}
+                    height={100}
                   />
-                  <button type="button" onClick={handlePhotoRemove} className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1">
+                  <button type="button" onClick={handlePhotoRemove} className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1" aria-label="Eliminar foto">
                     <FaTimes size={10} />
                   </button>
                 </div>
-                <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
+                <label htmlFor="photoInput" className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md">
                   <FaCamera className="inline mr-2" /> Cambiar foto
-                  <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
                 </label>
+                <input id="photoInput" type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
                 <p className="text-xs text-gray-500">Formatos: JPG, PNG (Max. 2MB)</p>
               </div>
             </div>
@@ -140,7 +137,7 @@ export default function EditDriver() {
   );
 }
 
-// Input component
+// Componente Input
 type InputProps = {
   label: string;
   name: string;
@@ -153,14 +150,16 @@ type InputProps = {
 function Input({ label, name, value, onChange, required, type = 'text' }: InputProps) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label} {required && <span className="text-red-500">*</span>}</label>
-      <input type={type} name={name} value={value} onChange={onChange} required={required}
+      <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <input id={name} type={type} name={name} value={value} onChange={onChange} required={required}
         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
     </div>
   );
 }
 
-// PasswordInput component
+// Componente PasswordInput
 type PasswordInputProps = {
   label: string;
   name: string;
@@ -173,16 +172,4 @@ type PasswordInputProps = {
 function PasswordInput({ label, name, value, onChange, visible, toggleVisible }: PasswordInputProps) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-      <div className="relative">
-        <input type={visible ? 'text' : 'password'} name={name} value={value} onChange={onChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-        <button type="button" onClick={toggleVisible} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-          {visible ? <FaEyeSlash /> : <FaEye />}
-        </button>
-      </div>
-      <p className="mt-1 text-xs text-gray-500">Dejar en blanco para no cambiar</p>
-    </div>
-  );
-}
-
+      <label htmlFor={name}

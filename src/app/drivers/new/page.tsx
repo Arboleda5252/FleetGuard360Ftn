@@ -9,7 +9,7 @@ const NuevoConductor = () => {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
   const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const archivo = e.target.files && e.target.files[0];
+    const archivo = e.target.files?.[0];
     if (archivo) {
       const lector = new FileReader();
       lector.onload = (event) => {
